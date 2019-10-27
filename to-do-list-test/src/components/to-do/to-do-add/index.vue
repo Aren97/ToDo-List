@@ -1,5 +1,5 @@
 <template>
-  <form class="to-do-add mb-20" @submit.prevent="addTask" @keyup.enter="addTask">
+  <form class="to-do-add mb-20" @submit.prevent="addTask" @keyup.stop.enter="addTask">
     <textarea
       placeholder="Enter a title for this card..."
       name="to-do-add"
@@ -8,7 +8,9 @@
     ></textarea>
     <div class="to-do-add-actions">
       <button class="to-do-add__submit" type="submit">Add Task</button>
-      <div class="to-do-add__cancel" @click="clearTextArea">X</div>
+      <div class="to-do-add__cancel" @click="clearTextArea">
+        <font-awesome-icon :icon="['fas', 'times']" size="lg" />
+      </div>
     </div>
   </form>
 </template>
@@ -22,13 +24,13 @@ export default {
     }
   },
   computed: {
-    tasksLength () {
-      return this.$store.getters.tasks.length
+    maxTaskId () {
+      return this.$store.getters.tasks[0].intId
     }
   },
   methods: {
     async addTask () {
-      const addResult = await this.$store.dispatch('addTask', { title: this.todoTitle, intId: parseInt(this.tasksLength) + 1 })
+      const addResult = await this.$store.dispatch('addTask', { title: this.todoTitle, intId: parseInt(this.maxTaskId) + 1 })
       if (addResult.key) {
         this.clearTextArea()
       }

@@ -4,6 +4,13 @@ import router from './router'
 import store from './store'
 import firebase from 'firebase/app'
 import 'firebase/database'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faTimes, faCheck, faPencilAlt } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+
+library.add(faTimes, faCheck, faPencilAlt)
+
+Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 const config = {
   apiKey: 'AIzaSyDnpKi7Lqsb7-NatOEToauocXW_XKNwSvI',

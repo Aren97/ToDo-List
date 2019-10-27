@@ -13,3 +13,22 @@
 .to-do-item__remove {
   cursor: pointer;
 }
+
+.to-do-item__actions {
+  display: flex;
+  align-items: center;
+}
+
+.to-do-item__icon {
+  margin-left: 10px;
+  color: $grey;
+  cursor: pointer;
+}
+
+.to-do-item__remove {
+  color: $red;
+}
+
+.to-do-item__check {
+  color: $green;
+}
