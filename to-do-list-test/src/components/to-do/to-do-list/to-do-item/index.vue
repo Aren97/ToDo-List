@@ -51,7 +51,14 @@ export default {
   },
   methods: {
     removeItem () {
-      this.$store.dispatch('removeTask', { index: this.index, id: this.id })
+      if (this.taskEditing) {
+        if (this.editingTitle !== this.title) {
+          this.editingTitle = this.title
+        }
+        this.editItem()
+      } else {
+        this.$store.dispatch('removeTask', { index: this.index, id: this.id })
+      }
     },
     async checkItem () {
       if (this.taskEditing) {
