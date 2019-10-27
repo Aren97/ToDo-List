@@ -5,6 +5,7 @@
       :key="task.id"
       :title="task.title"
       :index="index"
+      :id="task.id"
       @remove="removeTask(index, task.id)"
     />
   </ul>

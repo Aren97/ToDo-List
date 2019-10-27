@@ -61,6 +61,16 @@ export default {
       } finally {
         commit('setDataLoading')
       }
+    },
+    async changeTaskItem ({ commit }, payload) {
+      commit('setDataLoading', true)
+      try {
+        await firebase.database().ref('todos').child(payload.id).update({ title: payload.title })
+      } catch (e) {
+        console.error('Error removing task:', e)
+      } finally {
+        commit('setDataLoading')
+      }
     }
   },
   getters: {

@@ -31,3 +31,8 @@
   margin-left: 16px;
   color: $red;
 }
+
+.to-do-item__text {
+  display: flex;
+  align-items: center;
+}

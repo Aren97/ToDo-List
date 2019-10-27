@@ -1,16 +1,19 @@
 <template>
     <li class="to-do-item mb-20">
       <div class="to-do-item__text">
+        {{index+1}})
         <input
-          v-if="taskEditing"
+          v-show="taskEditing"
           v-model="editingTitle"
+          ref="chengingInput"
           type="text"
           name="editing-text"
+          @keyup.enter="changeItemTitle"
         >
         <div
-          v-else
+          v-if="!taskEditing"
           class="to-do-item__title"
-        >{{index+1}}) {{title}}</div>
+        >{{editingTitle}}</div>
       </div>
 
       <div class="to-do-item__actions">
@@ -36,7 +39,8 @@ export default {
   name: 'to-do-item',
   props: {
     title: String,
-    index: Number
+    index: Number,
+    id: String
   },
   data () {
     return {
@@ -49,10 +53,25 @@ export default {
       this.$emit('remove')
     },
     checkItem () {
+      if (this.taskEditing) {
+        this.changeItemTitle()
+      } else {
 
+      }
     },
     editItem () {
-
+      this.taskEditing = !this.taskEditing
+      if (this.taskEditing) {
+        setTimeout(() => {
+          this.$refs.chengingInput.focus()
+        }, 0)
+      }
+    },
+    async changeItemTitle () {
+      if (this.editingTitle !== this.title) {
+        await this.$store.dispatch('changeTaskItem', { id: this.id, title: this.editingTitle })
+      }
+      this.editItem()
     }
   }
 }

@@ -1,5 +1,5 @@
 <template>
-  <form class="to-do-add mb-20" @submit.prevent="addTask" @keyup.stop.enter="addTask">
+  <form class="to-do-add mb-20" @submit.prevent="addTask" @keyup.enter="addTask">
     <textarea
       placeholder="Enter a title for this card..."
       name="to-do-add"
