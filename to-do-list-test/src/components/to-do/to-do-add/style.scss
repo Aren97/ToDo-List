@@ -25,7 +25,9 @@
   -moz-box-shadow: 0px 5px 6px -6px rgba(0,0,0,0.75);
   box-shadow: 0px 5px 6px -6px rgba(0,0,0,0.75);
 }
-
+.to-do-add__submit--disabled {
+  background-color: $grey;
+}
 .to-do-add__cancel {
   cursor: pointer;
   margin-left: 16px;

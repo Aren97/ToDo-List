@@ -7,7 +7,7 @@
       v-model="todoTitle"
     ></textarea>
     <div class="to-do-add-actions">
-      <button class="to-do-add__submit" type="submit">
+      <button :class="['to-do-add__submit', { 'to-do-add__submit--disabled': !this.todoTitle }]" type="submit" :disabled="!this.todoTitle">
         <span v-if="buttonLoader">loading..</span>
         <span v-else>Add Task</span>
       </button>
@@ -36,6 +36,9 @@ export default {
   },
   methods: {
     async addTask () {
+      if (!this.todoTitle) {
+        return false
+      }
       const addResult = await this.$store.dispatch('addTask', { title: this.todoTitle, intId: parseInt(this.maxTaskId) + 1 })
       if (addResult.key) {
         this.clearTextArea()
