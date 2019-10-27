@@ -1,6 +1,6 @@
 <template>
     <li class="to-do-item mb-20">
-      <div class="to-do-item__title">{{title}}</div>
+      <div class="to-do-item__title">{{index+1}}) {{title}}</div>
       <div class="to-do-item__actions">
         <div class="to-do-item__edit"></div>
         <div class="to-do-item__remove" @click="removeItem">X</div>
@@ -11,7 +11,10 @@
 <script>
 export default {
   name: 'to-do-item',
-  props: ['title'],
+  props: {
+    title: String,
+    index: Number
+  },
   methods: {
     removeItem () {
       this.$emit('remove')

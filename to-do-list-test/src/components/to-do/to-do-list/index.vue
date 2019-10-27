@@ -4,6 +4,7 @@
       v-for="(task, index) in tasks"
       :key="task.id"
       :title="task.title"
+      :index="index"
       @remove="removeTask(index, task.id)"
     />
   </ul>
