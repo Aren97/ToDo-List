@@ -5,20 +5,31 @@ export default {
     dataIsLoading: false
   },
   mutations: {
+    // Присваивает полученные задачи
     setData (state, payload) {
       state.data = payload
     },
+    // Флаг загрузки задач
     setDataLoading (state, payload) {
       state.dataIsLoading = payload
     },
+    // Добавляет задачу в локальный массив
     addTaskLocal (state, payload) {
       state.data.unshift(payload)
     },
+    // Удаляет задачу
     removeTask (state, payload) {
       state.data.splice(payload, 1)
+    },
+    // Отмечает задачу, как выполненную
+    checkTask (state, payload) {
+      console.log(state.data[payload])
+      state.data[payload]['checked'] = true
+      console.log(state.data[payload])
     }
   },
   actions: {
+    // Получает список задач
     async getTasks ({ commit }) {
       commit('setDataLoading', true)
       try {
@@ -27,7 +38,7 @@ export default {
         const tasks = result.val()
 
         Object.keys(tasks).forEach(key => {
-          tasksArr.push({ title: tasks[key].title, id: key, intId: tasks[key].intId })
+          tasksArr.push({ title: tasks[key].title, id: key, intId: tasks[key].intId, checked: tasks[key].checked })
         })
         commit('setData', tasksArr)
       } catch (e) {
@@ -36,6 +47,7 @@ export default {
         commit('setDataLoading')
       }
     },
+    // Добавлякт задачу
     async addTask ({ commit }, payload) {
       commit('setDataLoading', true)
       try {
@@ -51,6 +63,7 @@ export default {
         commit('setDataLoading')
       }
     },
+    // Удаляет задачу
     async removeTask ({ commit }, payload) {
       commit('setDataLoading', true)
       try {
@@ -62,18 +75,32 @@ export default {
         commit('setDataLoading')
       }
     },
-    async changeTaskItem ({ commit }, payload) {
+    // Изменяет задачу
+    async changeTask ({ commit }, payload) {
       commit('setDataLoading', true)
       try {
         await firebase.database().ref('todos').child(payload.id).update({ title: payload.title })
       } catch (e) {
-        console.error('Error removing task:', e)
+        console.error('Error changing task:', e)
+      } finally {
+        commit('setDataLoading')
+      }
+    },
+    // Отмечает задачу, как выполненную
+    async checkTask ({ commit }, payload) {
+      commit('setDataLoading', true)
+      try {
+        await firebase.database().ref('todos').child(payload.id).update({ checked: true })
+        commit('checkTask', payload.index)
+      } catch (e) {
+        console.error('Error checking task:', e)
       } finally {
         commit('setDataLoading')
       }
     }
   },
   getters: {
+    // Возвращает задачи
     tasks (state) {
       return state.data
     }

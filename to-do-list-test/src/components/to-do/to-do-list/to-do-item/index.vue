@@ -1,5 +1,5 @@
 <template>
-    <li class="to-do-item mb-20">
+    <li :class="['to-do-item mb-20', { 'to-do-item--checked': checked }]">
       <div class="to-do-item__text">
         {{index+1}})
         <input
@@ -16,7 +16,7 @@
         >{{editingTitle}}</div>
       </div>
 
-      <div class="to-do-item__actions">
+      <div class="to-do-item__actions" v-if="!checked">
         <div
           v-if="!taskEditing"
           class="to-do-item__icon to-do-item__edit"
@@ -40,7 +40,8 @@ export default {
   props: {
     title: String,
     index: Number,
-    id: String
+    id: String,
+    checked: Boolean
   },
   data () {
     return {
@@ -50,13 +51,13 @@ export default {
   },
   methods: {
     removeItem () {
-      this.$emit('remove')
+      this.$store.dispatch('removeTask', { index: this.index, id: this.id })
     },
-    checkItem () {
+    async checkItem () {
       if (this.taskEditing) {
         this.changeItemTitle()
       } else {
-
+        await this.$store.dispatch('checkTask', { id: this.id, index: this.index })
       }
     },
     editItem () {
@@ -69,7 +70,7 @@ export default {
     },
     async changeItemTitle () {
       if (this.editingTitle !== this.title) {
-        await this.$store.dispatch('changeTaskItem', { id: this.id, title: this.editingTitle })
+        await this.$store.dispatch('changeTask', { id: this.id, title: this.editingTitle })
       }
       this.editItem()
     }

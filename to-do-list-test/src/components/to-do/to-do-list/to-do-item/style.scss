@@ -2,12 +2,14 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  position: relative;
   padding: 15px 10px;
   background: #fff;
   border-radius: 5px;
   -webkit-box-shadow: 0px 5px 6px -6px rgba(0,0,0,0.75);
   -moz-box-shadow: 0px 5px 6px -6px rgba(0,0,0,0.75);
   box-shadow: 0px 5px 6px -6px rgba(0,0,0,0.75);
+  overflow: hidden;
 }
 .to-do-item__title {
   margin-left: 4px;
@@ -33,4 +35,28 @@
 
 .to-do-item__check {
   color: $green;
+}
+
+.to-do-item--checked {
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    right: 10px;
+    height: 1px;
+    background-color: #000000;
+    z-index: 1;
+  }
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: $grey;
+    z-index: 1;
+    opacity: 0.5;
+  }
 }

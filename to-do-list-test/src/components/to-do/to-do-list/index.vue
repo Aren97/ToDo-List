@@ -6,7 +6,7 @@
       :title="task.title"
       :index="index"
       :id="task.id"
-      @remove="removeTask(index, task.id)"
+      :checked="task.checked"
     />
   </ul>
 </template>
@@ -22,11 +22,6 @@ export default {
   computed: {
     tasks () {
       return sortByInt(this.$store.getters.tasks, 'intId')
-    }
-  },
-  methods: {
-    removeTask (index, id) {
-      this.$store.dispatch('removeTask', { index, id })
     }
   }
 }
