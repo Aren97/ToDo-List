@@ -28,6 +28,9 @@
 .to-do-add__submit--disabled {
   background-color: $grey;
 }
+.to-do-add__submit--loader {
+  color: #fff;
+}
 .to-do-add__cancel {
   cursor: pointer;
   margin-left: 16px;

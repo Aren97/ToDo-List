@@ -7,8 +7,12 @@
       v-model="todoTitle"
     ></textarea>
     <div class="to-do-add-actions">
-      <button :class="['to-do-add__submit', { 'to-do-add__submit--disabled': !this.todoTitle }]" type="submit" :disabled="!this.todoTitle">
-        <span v-if="buttonLoader">loading..</span>
+      <button
+        type="submit"
+        :class="['to-do-add__submit', { 'to-do-add__submit--disabled': !this.todoTitle }]"
+        :disabled="!this.todoTitle"
+      >
+        <span v-if="buttonLoader" class="to-do-add__submit--loader"><font-awesome-icon :icon="['fas', 'spinner']" /></span>
         <span v-else>Add Task</span>
       </button>
       <div class="to-do-add__cancel" @click="clearTextArea">
