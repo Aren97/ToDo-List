@@ -52,29 +52,36 @@ export default {
   methods: {
     removeItem () {
       if (this.taskEditing) {
+        // Отменяет редактирование задачи
         if (this.editingTitle !== this.title) {
           this.editingTitle = this.title
         }
         this.editItem()
       } else {
+        // Удаляет задачу
         this.$store.dispatch('removeTask', { index: this.index, id: this.id })
       }
     },
     async checkItem () {
       if (this.taskEditing) {
+        // Применяет изменения заголовка задачи
         this.changeItemTitle()
       } else {
+        // Отмечает задачу, как выполненную
         await this.$store.dispatch('checkTask', { id: this.id, index: this.index })
       }
     },
     editItem () {
+      // Меняет режим редактирования задачи и наоборот
       this.taskEditing = !this.taskEditing
       if (this.taskEditing) {
+        // Ставит фокус на инпут, если задача в режиме редактирования
         setTimeout(() => {
           this.$refs.chengingInput.focus()
         }, 0)
       }
     },
+    // Меняет заголовок задачи
     async changeItemTitle () {
       if (this.editingTitle !== this.title) {
         await this.$store.dispatch('changeTask', { id: this.id, title: this.editingTitle })
