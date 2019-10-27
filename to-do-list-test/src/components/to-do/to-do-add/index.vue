@@ -7,7 +7,10 @@
       v-model="todoTitle"
     ></textarea>
     <div class="to-do-add-actions">
-      <button class="to-do-add__submit" type="submit">Add Task</button>
+      <button class="to-do-add__submit" type="submit">
+        <span v-if="buttonLoader">loading..</span>
+        <span v-else>Add Task</span>
+      </button>
       <div class="to-do-add__cancel" @click="clearTextArea">
         <font-awesome-icon :icon="['fas', 'times']" size="lg" />
       </div>
@@ -26,6 +29,9 @@ export default {
   computed: {
     maxTaskId () {
       return this.$store.getters.tasks[0].intId
+    },
+    buttonLoader () {
+      return this.$store.getters.buttonLoader
     }
   },
   methods: {

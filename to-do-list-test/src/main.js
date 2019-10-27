@@ -5,10 +5,10 @@ import store from './store'
 import firebase from 'firebase/app'
 import 'firebase/database'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faTimes, faCheck, faPencilAlt } from '@fortawesome/free-solid-svg-icons'
+import { faTimes, faCheck, faPencilAlt, faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-library.add(faTimes, faCheck, faPencilAlt)
+library.add(faTimes, faCheck, faPencilAlt, faSpinner)
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
