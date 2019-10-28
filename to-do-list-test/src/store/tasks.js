@@ -49,6 +49,7 @@ export default {
         const result = await firebase.database().ref('todos').once('value')
         const tasks = result.val()
 
+        console.log(Object.values(tasks))
         Object.keys(tasks).forEach(key => {
           tasksArr.push({ title: tasks[key].title, id: key, intId: tasks[key].intId, checked: tasks[key].checked })
         })

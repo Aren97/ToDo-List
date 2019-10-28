@@ -1,12 +1,21 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import ToDo from './router/to-do'
+import TaskPage from './router/task-page'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
-    name: 'home'
+    name: 'home',
+    component: ToDo
+  },
+  {
+    path: '/tasks/:id',
+    name: 'task-page',
+    component: TaskPage,
+    props: true
   }
 ]
 

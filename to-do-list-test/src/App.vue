@@ -1,14 +1,10 @@
 <template>
   <div id="app">
-    <to-do />
+    <router-view />
   </div>
 </template>
 <script>
-import ToDo from '@/components/to-do'
 export default {
-  components: {
-    ToDo
-  },
   mounted () {
     this.$store.dispatch('getTasks')
   }

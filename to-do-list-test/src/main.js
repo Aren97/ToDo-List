@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
-import router from './router'
+import router from './router.js'
 import store from './store'
 import firebase from 'firebase/app'
 import 'firebase/database'
@@ -21,7 +21,7 @@ const config = {
 
 Vue.config.productionTip = false
 
-new Vue({
+window.vm = new Vue({
   router,
   store,
   render: h => h(App),
