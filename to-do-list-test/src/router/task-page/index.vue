@@ -11,11 +11,6 @@ export default {
     return {
 
     }
-  },
-  computed: {
-    task () {
-      return this.$store.getters.tasks
-    }
   }
 }
 </script>

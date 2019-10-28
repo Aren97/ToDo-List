@@ -59,7 +59,7 @@ export default {
         this.editItem()
       } else {
         // Удаляет задачу
-        this.$store.dispatch('removeTask', { index: this.index, id: this.id })
+        this.$store.dispatch('removeTask', { id: this.id })
       }
     },
     async checkItem () {
@@ -68,7 +68,7 @@ export default {
         this.changeItemTitle()
       } else {
         // Отмечает задачу, как выполненную
-        await this.$store.dispatch('checkTask', { id: this.id, index: this.index })
+        await this.$store.dispatch('checkTask', { id: this.id })
       }
     },
     editItem () {

@@ -32,10 +32,13 @@ export default {
   },
   computed: {
     maxTaskId () {
-      return this.$store.getters.tasks[0].intId
+      return this.$store.getters.tasksObj[this.tasksKeys[0]].intId
     },
     buttonLoader () {
       return this.$store.getters.buttonLoader
+    },
+    tasksKeys () {
+      return this.$store.getters.tasksKeys
     }
   },
   methods: {

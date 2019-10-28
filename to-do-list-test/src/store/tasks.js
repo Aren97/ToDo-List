@@ -1,7 +1,8 @@
 import firebase from 'firebase/app'
 export default {
   state: {
-    data: [],
+    dataKeys: [],
+    dataObj: {},
     loaders: {
       dataIsLoading: false,
       buttonLoader: false,
@@ -11,7 +12,8 @@ export default {
   mutations: {
     // Присваивает полученные задачи
     setData (state, payload) {
-      state.data = payload
+      state.dataKeys = Object.keys(payload).reverse()
+      state.dataObj = payload
     },
     // Флаг загрузки задач
     setDataLoading (state, payload) {
@@ -27,17 +29,18 @@ export default {
     },
     // Добавляет задачу в локальный массив
     addTaskLocal (state, payload) {
-      state.data.unshift(payload)
+      state.dataObj[payload.key] = payload.data
+      state.dataKeys.unshift(payload.key)
     },
     // Удаляет задачу
     removeTask (state, payload) {
-      state.data.splice(payload, 1)
+      delete state.dataObj[payload]
+      state.dataKeys.splice(state.dataKeys.indexOf(payload), 1)
     },
     // Отмечает задачу, как выполненную
     checkTask (state, payload) {
-      console.log(state.data[payload])
-      state.data[payload]['checked'] = true
-      console.log(state.data[payload])
+      state.dataKeys = state.dataKeys.slice()
+      state.dataObj[payload]['checked'] = true
     }
   },
   actions: {
@@ -45,15 +48,10 @@ export default {
     async getTasks ({ commit }) {
       commit('setDataLoading', true)
       try {
-        const tasksArr = []
-        const result = await firebase.database().ref('todos').once('value')
+        const result = await firebase.database().ref('todos').orderByChild('intId').once('value')
         const tasks = result.val()
 
-        console.log(Object.values(tasks))
-        Object.keys(tasks).forEach(key => {
-          tasksArr.push({ title: tasks[key].title, id: key, intId: tasks[key].intId, checked: tasks[key].checked })
-        })
-        commit('setData', tasksArr)
+        commit('setData', tasks)
       } catch (e) {
         console.log('Error getting task:', e)
       } finally {
@@ -66,7 +64,7 @@ export default {
       try {
         const result = firebase.database().ref('todos').push(payload)
         if (result.key) {
-          commit('addTaskLocal', payload)
+          commit('addTaskLocal', { data: payload, key: result.key })
           console.log('Task added')
         }
         return result
@@ -81,7 +79,7 @@ export default {
       commit('setTaskLoading', true)
       try {
         await firebase.database().ref('todos').child(payload.id).remove()
-        commit('removeTask', payload.index)
+        commit('removeTask', payload.id)
       } catch (e) {
         console.error('Error removing task:', e)
       } finally {
@@ -104,7 +102,7 @@ export default {
       commit('setTaskLoading', true)
       try {
         await firebase.database().ref('todos').child(payload.id).update({ checked: true })
-        commit('checkTask', payload.index)
+        commit('checkTask', payload.id)
       } catch (e) {
         console.error('Error checking task:', e)
       } finally {
@@ -113,9 +111,13 @@ export default {
     }
   },
   getters: {
-    // Возвращает задачи
-    tasks (state) {
-      return state.data
+    // Возвращает задачи в объекте ключ (id) - значение
+    tasksObj (state) {
+      return state.dataObj
+    },
+    // Возвращает ключи
+    tasksKeys (state) {
+      return state.dataKeys
     },
     // Возвращает флаг рагрузки задачи
     dataIsLoading (state) {

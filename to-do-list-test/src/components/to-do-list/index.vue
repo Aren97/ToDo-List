@@ -7,12 +7,12 @@
     </div>
     <ul v-else class="to-do-list">
       <to-do-item
-        v-for="(task, index) in tasks"
-        :key="task.id"
-        :title="task.title"
+        v-for="(id, index) in tasksKeys"
+        :key="id"
+        :title="tasksObj[id].title"
         :index="index"
-        :id="task.id"
-        :checked="task.checked"
+        :id="id"
+        :checked="tasksObj[id].checked"
       />
     </ul>
   </div>
@@ -20,15 +20,17 @@
 
 <script>
 import ToDoItem from './to-do-item'
-import { sortByInt } from '@/helpers/sort'
 export default {
   name: 'to-do-list',
   components: {
     ToDoItem
   },
   computed: {
-    tasks () {
-      return sortByInt(this.$store.getters.tasks, 'intId')
+    tasksObj () {
+      return this.$store.getters.tasksObj
+    },
+    tasksKeys () {
+      return this.$store.getters.tasksKeys
     },
     dataIsLoading () {
       return this.$store.getters.dataIsLoading
