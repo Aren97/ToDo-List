@@ -58,7 +58,7 @@ export default {
 
         commit('setData', tasks)
       } catch (e) {
-        console.log('Error getting task:', e)
+        console.error('Error getting task:', e)
       } finally {
         commit('setDataLoading')
       }
@@ -70,7 +70,6 @@ export default {
         const result = await firebase.database().ref('todos').push(payload)
         if (result.key) {
           commit('addTaskLocal', { data: payload, key: result.key })
-          console.log('Task added')
         }
         return result
       } catch (e) {
