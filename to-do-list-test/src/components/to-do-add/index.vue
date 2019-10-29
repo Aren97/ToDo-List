@@ -44,13 +44,16 @@ export default {
   },
   methods: {
     async addTask () {
-      if (!this.todoTitle) {
+      if (!this.todoTitle.replace(/\s/g, '')) {
+        this.clearTextArea()
         return false
       }
       const addResult = await this.$store.dispatch('addTask', { title: this.todoTitle, intId: parseInt(this.maxTaskId) + 1 })
       if (addResult.key) {
         this.clearTextArea()
-        this.$router.push('/')
+        if (this.$route.params.page > 1) {
+          this.$router.push('/')
+        }
       }
     },
     clearTextArea () {

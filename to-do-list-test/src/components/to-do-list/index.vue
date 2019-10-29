@@ -1,6 +1,6 @@
 <template>
   <div class="to-do-list-wrap">
-    <div class="to-do-list-page-error" v-if="notPage">
+    <div class="to-do-list-page-error" v-if="!isPage">
       <div v-if="dataIsLoading" class="to-do-list--loading">
         <div class="to-do-list--spinner">
           <font-awesome-icon :icon="['fas', 'spinner']" size="lg" />
@@ -84,11 +84,11 @@ export default {
 
       return Math.ceil(l / s)
     },
-    notPage () {
-      if (this.page) {
-        return this.page > this.pageCount
+    isPage () {
+      if (this.page && this.pageCount > 0) {
+        return this.page <= this.pageCount
       }
-      return false
+      return true
     }
   },
   methods: {

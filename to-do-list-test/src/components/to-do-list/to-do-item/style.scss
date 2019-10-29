@@ -13,8 +13,12 @@
 }
 .to-do-item__title {
   margin-left: 4px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .to-do-item__remove {
+  position: relative;
+  z-index: 2;
   cursor: pointer;
 }
 
@@ -43,7 +47,7 @@
     position: absolute;
     top: 50%;
     left: 10px;
-    right: 10px;
+    right: 30px;
     height: 1px;
     background-color: #000000;
     z-index: 1;

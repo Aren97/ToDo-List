@@ -17,9 +17,9 @@
         >{{editingTitle}}</router-link>
       </div>
 
-      <div class="to-do-item__actions" v-if="!checked">
+      <div class="to-do-item__actions">
         <div
-          v-if="!taskEditing"
+          v-if="!taskEditing && !checked"
           class="to-do-item__icon to-do-item__edit"
           @click="editItem"
         >
@@ -28,7 +28,7 @@
         <div class="to-do-item__icon to-do-item__remove" @click="removeItem">
           <font-awesome-icon :icon="['fas', 'times']" />
         </div>
-        <div class="to-do-item__icon to-do-item__check" @click="checkItem">
+        <div v-if="!checked" class="to-do-item__icon to-do-item__check" @click="checkItem">
           <font-awesome-icon :icon="['fas', 'check']" />
         </div>
       </div>
@@ -85,6 +85,9 @@ export default {
     },
     // Меняет заголовок задачи
     async changeItemTitle () {
+      if (!this.editingTitle.replace(/\s/g, '')) {
+        return false
+      }
       if (this.editingTitle !== this.title || !this.editingTitle) {
         await this.$store.dispatch('changeTask', { id: this.id, title: this.editingTitle })
       }

@@ -10,12 +10,10 @@
 
 <script>
 import ToDoAdd from '@/components/to-do-add'
-// import ToDoList from '@/components/to-do-list'
 export default {
   name: 'to-do',
   components: {
     ToDoAdd
-    // ToDoList
   },
   props: ['page']
 }

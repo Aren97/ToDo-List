@@ -68,6 +68,9 @@ export default {
   methods: {
     // Меняет заголовок задачи
     async changeItemTitle () {
+      if (!this.editingTitle.replace(/\s/g, '')) {
+        return false
+      }
       if (this.editingTitle !== this.title || !this.editingTitle) {
         await this.$store.dispatch('changeTask', { id: this.id, title: this.editingTitle })
       }
