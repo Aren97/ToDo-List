@@ -4,19 +4,20 @@
       Задачи
     </div>
     <to-do-add />
-    <to-do-list />
+    <router-view />
   </div>
 </template>
 
 <script>
 import ToDoAdd from '@/components/to-do-add'
-import ToDoList from '@/components/to-do-list'
+// import ToDoList from '@/components/to-do-list'
 export default {
   name: 'to-do',
   components: {
-    ToDoAdd,
-    ToDoList
-  }
+    ToDoAdd
+    // ToDoList
+  },
+  props: ['page']
 }
 </script>
 

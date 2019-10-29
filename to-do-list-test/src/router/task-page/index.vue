@@ -1,46 +1,49 @@
 <template>
-  <div class="task-page">
-    <div class="task-page-to-previous" @click="$router.go(-1)">
-      Вернуться назад
-    </div>
-    <div class="task-page-info">
-      <div class="task-page-text">
-        Заголовок -
-        <input
-          class="task-page__input"
-          v-show="taskEditing"
-          v-model="editingTitle"
-          ref="chengingInput"
-          type="text"
-          name="editing-text"
-          @keyup.enter="changeItemTitle"
-        >
-        <div v-if="!taskEditing" class="task-page__title">{{title}}</div>
+  <div class="task-page-wrap">
+    <div v-if="title" class="task-page" >
+      <div class="task-page-to-previous" @click="$router.go(-1)">
+        Вернуться назад
       </div>
-      <div class="task-page-actions">
-        <div
-          v-if="!taskEditing"
-          class="task-page__icon task-page__edit"
-          @click="editItem"
-        >
-          <font-awesome-icon :icon="['fas', 'pencil-alt']" />
+      <div class="task-page-info">
+        <div class="task-page-text">
+          Заголовок -
+          <input
+            class="task-page__input"
+            v-show="taskEditing"
+            v-model="editingTitle"
+            ref="chengingInput"
+            type="text"
+            name="editing-text"
+            @keyup.enter="changeItemTitle"
+          >
+          <div v-if="!taskEditing" class="task-page__title">{{title}}</div>
         </div>
-        <div
-          v-if="this.taskEditing"
-          class="task-page__icon task-page__check"
-          @click="checkItem"
-        >
-          <font-awesome-icon :icon="['fas', 'check']" />
-        </div>
-        <div
-          v-if="this.taskEditing"
-          class="task-page__icon task-page__remove"
-          @click="cancelItem"
-        >
-          <font-awesome-icon :icon="['fas', 'times']" />
+        <div class="task-page-actions">
+          <div
+            v-if="!taskEditing"
+            class="task-page__icon task-page__edit"
+            @click="editItem"
+          >
+            <font-awesome-icon :icon="['fas', 'pencil-alt']" />
+          </div>
+          <div
+            v-if="this.taskEditing"
+            class="task-page__icon task-page__check"
+            @click="checkItem"
+          >
+            <font-awesome-icon :icon="['fas', 'check']" />
+          </div>
+          <div
+            v-if="this.taskEditing"
+            class="task-page__icon task-page__remove"
+            @click="cancelItem"
+          >
+            <font-awesome-icon :icon="['fas', 'times']" />
+          </div>
         </div>
       </div>
     </div>
+    <div v-else class="task-page-error">Нет такой страницы</div>
   </div>
 </template>
 

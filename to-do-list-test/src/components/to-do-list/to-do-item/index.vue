@@ -1,7 +1,7 @@
 <template>
     <li :class="['to-do-item mb-20', { 'to-do-item--checked': checked }]">
       <div class="to-do-item__text">
-        {{index+1}})
+        {{index+1 + (pageNumber - 1) * 10}})
         <input
           v-show="taskEditing"
           v-model="editingTitle"
@@ -41,6 +41,7 @@ export default {
   props: {
     title: String,
     index: Number,
+    pageNumber: Number,
     id: String,
     checked: Boolean
   },

@@ -5,6 +5,7 @@
       name="to-do-add"
       class="to-do-add__textarea"
       v-model="todoTitle"
+      @keypress="handleKeypress($event)"
     ></textarea>
     <div class="to-do-add-actions">
       <button
@@ -49,10 +50,16 @@ export default {
       const addResult = await this.$store.dispatch('addTask', { title: this.todoTitle, intId: parseInt(this.maxTaskId) + 1 })
       if (addResult.key) {
         this.clearTextArea()
+        this.$router.push('/')
       }
     },
     clearTextArea () {
       this.todoTitle = ''
+    },
+    handleKeypress (e) {
+      if (!e.shiftKey && e.which === 13) {
+        e.preventDefault()
+      }
     }
   }
 }
