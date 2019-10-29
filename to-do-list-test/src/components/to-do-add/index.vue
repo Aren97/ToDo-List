@@ -1,11 +1,11 @@
 <template>
-  <form class="to-do-add mb-20" @submit.prevent="addTask" @keyup.enter="addTask">
+  <form class="to-do-add mb-20" @submit.prevent="addTask">
     <textarea
       placeholder="Enter a title for this card..."
       name="to-do-add"
       class="to-do-add__textarea"
       v-model="todoTitle"
-      @keypress="handleKeypress($event)"
+      @keypress.enter.prevent="addTask"
     ></textarea>
     <div class="to-do-add-actions">
       <button
@@ -55,11 +55,6 @@ export default {
     },
     clearTextArea () {
       this.todoTitle = ''
-    },
-    handleKeypress (e) {
-      if (!e.shiftKey && e.which === 13) {
-        e.preventDefault()
-      }
     }
   }
 }
