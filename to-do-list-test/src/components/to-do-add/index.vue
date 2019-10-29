@@ -32,7 +32,7 @@ export default {
   },
   computed: {
     maxTaskId () {
-      return this.$store.getters.tasksObj[this.tasksKeys[0]].intId
+      return (this.$store.getters.tasksObj && this.$store.getters.tasksObj[this.tasksKeys[0]] && this.$store.getters.tasksObj[this.tasksKeys[0]].intId) || 0
     },
     buttonLoader () {
       return this.$store.getters.buttonLoader

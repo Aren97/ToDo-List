@@ -39,12 +39,13 @@ export default {
     },
     // Отмечает задачу, как выполненную
     checkTask (state, payload) {
-      state.dataKeys = state.dataKeys.slice()
       state.dataObj[payload]['checked'] = true
+      state.dataKeys = state.dataKeys.slice()
     },
     // Меняет тайтл задачи
     changeTask (state, payload) {
       state.dataObj[payload.id].title = payload.title
+      state.dataObj = Object.assign({}, state.dataObj)
     }
   },
   actions: {
