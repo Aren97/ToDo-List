@@ -1,5 +1,5 @@
 <template>
-  <div class="to-do container">
+  <div class="to-do">
     <div class="to-do__title mb-20">
       Задачи
     </div>

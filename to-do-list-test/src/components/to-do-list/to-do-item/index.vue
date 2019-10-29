@@ -10,10 +10,11 @@
           name="editing-text"
           @keyup.enter="changeItemTitle"
         >
-        <div
+        <router-link
           v-if="!taskEditing"
+          :to="`/tasks/${id}`"
           class="to-do-item__title"
-        >{{editingTitle}}</div>
+        >{{editingTitle}}</router-link>
       </div>
 
       <div class="to-do-item__actions" v-if="!checked">
@@ -83,7 +84,7 @@ export default {
     },
     // Меняет заголовок задачи
     async changeItemTitle () {
-      if (this.editingTitle !== this.title) {
+      if (this.editingTitle !== this.title || !this.editingTitle) {
         await this.$store.dispatch('changeTask', { id: this.id, title: this.editingTitle })
       }
       this.editItem()

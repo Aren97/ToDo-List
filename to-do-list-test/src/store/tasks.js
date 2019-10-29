@@ -12,8 +12,8 @@ export default {
   mutations: {
     // Присваивает полученные задачи
     setData (state, payload) {
-      state.dataKeys = Object.keys(payload).reverse()
       state.dataObj = payload
+      state.dataKeys = Object.keys(state.dataObj).reverse()
     },
     // Флаг загрузки задач
     setDataLoading (state, payload) {
@@ -41,6 +41,10 @@ export default {
     checkTask (state, payload) {
       state.dataKeys = state.dataKeys.slice()
       state.dataObj[payload]['checked'] = true
+    },
+    // Меняет тайтл задачи
+    changeTask (state, payload) {
+      state.dataObj[payload.id].title = payload.title
     }
   },
   actions: {
@@ -91,6 +95,7 @@ export default {
       commit('setTaskLoading', true)
       try {
         await firebase.database().ref('todos').child(payload.id).update({ title: payload.title })
+        commit('changeTask', { id: payload.id, title: payload.title })
       } catch (e) {
         console.error('Error changing task:', e)
       } finally {

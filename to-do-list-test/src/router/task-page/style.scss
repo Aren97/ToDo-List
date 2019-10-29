@@ -1,0 +1,20 @@
+.task-page-info, .task-page-text, .task-page-actions {
+  display: flex;
+  align-items: center;
+}
+
+.task-page__title {
+  margin-left: 6px;
+}
+
+.task-page__icon {
+  margin-left: 6px;
+  color: $grey;
+  cursor: pointer;
+}
+
+.task-page-to-previous {
+  cursor: pointer;
+  text-decoration: underline;
+  margin-bottom: 12px;
+}
