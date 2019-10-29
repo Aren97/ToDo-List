@@ -65,13 +65,18 @@ export default {
   methods: {
     // Меняет заголовок задачи
     async changeItemTitle () {
+      console.log('this.editingTitle done', this.editingTitle)
+      console.log('this.title done', this.title)
       if (this.editingTitle !== this.title || !this.editingTitle) {
         await this.$store.dispatch('changeTask', { id: this.id, title: this.editingTitle })
       }
-      this.editItem()
+      this.taskEditing = false
     },
     editItem () {
       this.editingTitle = this.title
+      console.log('this.editingTitle', this.editingTitle)
+      console.log('this.title', this.title)
+
       // Меняет режим редактирования задачи и наоборот
       this.taskEditing = !this.taskEditing
       if (this.taskEditing) {
