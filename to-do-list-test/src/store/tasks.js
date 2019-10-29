@@ -67,7 +67,7 @@ export default {
     async addTask ({ commit }, payload) {
       commit('setAddLoading', true)
       try {
-        const result = firebase.database().ref('todos').push(payload)
+        const result = await firebase.database().ref('todos').push(payload)
         if (result.key) {
           commit('addTaskLocal', { data: payload, key: result.key })
           console.log('Task added')
